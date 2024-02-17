@@ -2,7 +2,7 @@
 
 resource myStorage 'Microsoft.Storage/storageAccounts@2023-01-01' = {
   name: 'gkarautostorageaccount'
-  location: 'useast'
+  location: 'eastus'
   sku: {
     name: 'Standard_LRS'
   }
