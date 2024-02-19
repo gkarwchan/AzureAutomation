@@ -6,6 +6,8 @@
 trigger:
 - main
 
+name: Build infrastructure
+
 variables:
   resourceGroupName: 'automation'
   location: 'eastus'
@@ -18,11 +20,12 @@ stages:
 - stage: build
   jobs: 
   - job: Build
-    - task: AzureCLI@2  
+    steps:
+    - task: 'AzureCLI@2'  
       displayName: 'build bicep artifact' 
       inputs: 
         azureSubscription: $(azureSubscription) 
-        scriptType: 'pscore'  
+        scriptType: 'pscore'
         scriptLocation: 'inlineScript'  
         inlineScript: 'az bicep build --file main.bicep'
 
