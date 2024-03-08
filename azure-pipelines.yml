@@ -4,8 +4,10 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
+
 - name: deploymentDefaultLocation
   value: westus3
+
 
 jobs:
 - job:
