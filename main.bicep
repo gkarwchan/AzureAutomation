@@ -7,7 +7,6 @@ var uniqueName = uniqueString(resourceGroup().id)
 ])
 param environmentType string = 'nonprod'
 var storageSku = (environmentType == 'nonprod') ? 'Standard_LRS' : 'Standard_GRS'
-var appPlanSku = (environmentType == 'nonprod') ? 'F1' : 'P2v3'
 
 resource storageAccount 'Microsoft.Storage/storageAccounts@2023-01-01' = {
   name: 'storage${uniqueName}'
@@ -21,19 +20,14 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2023-01-01' = {
   }
 }
 
-resource appServicePlan 'Microsoft.Web/serverfarms@2023-01-01' = {
-  name: 'webfarm${uniqueName}'
-  location: location
-  sku: {
-    name: appPlanSku
+module appService 'modules/appService.bicep'={
+  name: 'appService'
+  params: {
+    location: location
+    uniqueName: uniqueName
+    environmentType: environmentType,
+    webAppName: 'webapp${uniqueName}'
   }
 }
 
-resource appServiceApp 'Microsoft.Web/sites@2023-01-01' = {
-  name: 'webapp${uniqueName}'
-  location: location
-  properties: {
-    serverFarmId: appServicePlan.id
-    httpsOnly: true
-  }
-}
+output appServiceHostName string = appService.outputs.appServiceHostName
