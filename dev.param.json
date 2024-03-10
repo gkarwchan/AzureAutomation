@@ -29,7 +29,7 @@
         "sqlServerAdminPassword": {
             "reference": {
                 "keyVault": {
-                    "id": "/subscriptions/2fd23497-4700-40ff-b3f0-6ed5abd70e18/resourceGroups/DevGroup/providers/Microsoft.KeyVault/vaults/dev-keyvault-gkar"
+                    "id": "/subscriptions/2fd23497-4700-40ff-b3f0-6ed5abd70e18/resourceGroups/ReferenceGroup/providers/Microsoft.KeyVault/vaults/dev-keyvault-gkar"
                 },
                 "secretName": "sqlPassword"
             }

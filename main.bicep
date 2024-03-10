@@ -42,6 +42,7 @@ module sqlServer 'modules/sqlServer.bicep' = {
     sqDatabaseSku: sqDatabaseSku
     sqlServerAdminLogin: sqlServerAdminLogin
     sqlServerAdminPassword: sqlServerAdminPassword
+    environmentName: environmentName
   }
 }
 

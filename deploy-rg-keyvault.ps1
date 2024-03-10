@@ -1,9 +1,11 @@
 $ErrorActionPreference = "Stop"
-New-AzResourceGroup -Name 'DevGroup' -Location 'CentralUS' -Force -Tag @{'RG'='APP'}
-New-AzKeyVault -Name "dev-keyvault-gkar" -ResourceGroupName "DevGroup" -Location "CentralUS" -EnabledForTemplateDeployment
+New-AzResourceGroup -Name 'ReferenceGroup' -Location 'CentralUS' -Force -Tag @{'RG'='APP'}
+New-AzKeyVault -Name "dev-keyvault-gkar" -ResourceGroupName "ReferenceGroup" -Location "CentralUS" -EnabledForTemplateDeployment
 #//https://dev-keyvault-gkar.vault.azure.net/
-$secretvalue = ConvertTo-SecureString "......" -AsPlainText -Force
+$secretvalue = ConvertTo-SecureString "....." -AsPlainText -Force
 Set-AzKeyVaultSecret -VaultName "dev-keyvault-gkar" -Name "sqlPassword" -SecretValue $secretvalue
+New-AzResourceGroup -Name 'DevGroup' -Location 'CentralUS' -Force -Tag @{'RG'='APP'}
+
 # Get-AzKeyVaultSecret -VaultName "dev-keyvault-gkar" -Name "sqlPassword" -AsPlainText
 
 # $keyVaultName = 'YOUR-KEY-VAULT-NAME'
