@@ -1,0 +1,39 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "environmentName": {
+            "value": "dev"
+        },
+        "appServicePlanInstanceCount": {
+            "value": 1
+        },
+        "appServiceSku":{
+            "value": {
+                "name": "F1",
+                "tier": "Free"
+            }
+        },
+        "storageSku": {
+            "value": "Standard_LRS"
+        },
+        "sqDatabaseSku": {
+            "value": {
+              "name": "Standard",
+              "tier": "Standard"
+            }
+        },
+        "sqlServerAdminLogin": {
+            "value": "dvac"
+        },
+        "sqlServerAdminPassword": {
+            "reference": {
+                "keyVault": {
+                    "id": "/subscriptions/2fd23497-4700-40ff-b3f0-6ed5abd70e18/resourceGroups/DevGroup/providers/Microsoft.KeyVault/vaults/dev-keyvault-gkar"
+                },
+                "secretName": "sqlPassword"
+            }
+        }
+    }
+
+}

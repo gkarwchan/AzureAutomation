@@ -1,25 +1,28 @@
-param location string
-param uniqueName string
-param webAppName string
+@description('solution ID to make resource name unique')
+param solutionId string
 
-@allowed([
-  'nonprod'
-  'prod'
-])
-param environmentType string
+@description('region where the deployment will be')
+param location string = resourceGroup().location
 
-var appServicePlanSkuName = (environmentType == 'prod') ? 'P2v3' : 'F1'
+
+@description('app server plan SKU')
+param appServicePlanSku object
+@description('instance count for the appservice')
+param appServicePlanInstanceCount int
+
 
 resource appServicePlan 'Microsoft.Web/serverFarms@2023-01-01' = {
-  name: 'webfarm${uniqueName}'
+  name: 'webfarm-${solutionId}'
   location: location
   sku: {
-    name: appServicePlanSkuName
+    name: appServicePlanSku.name
+    tier: appServicePlanSku.tier
+    capacity: appServicePlanInstanceCount
   }
 }
 
 resource appServiceApp 'Microsoft.Web/sites@2023-01-01' = {
-  name: webAppName
+  name: 'webapp-${solutionId}'
   location: location
   properties: {
     serverFarmId: appServicePlan.id
