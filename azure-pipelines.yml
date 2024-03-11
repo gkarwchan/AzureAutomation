@@ -9,6 +9,8 @@ variables:
   value: centralus
 - name: ResourceGroupName
   value: DevGroup
+- name: ServiceConnectionName
+  value: dev-connection
 
 
 jobs:
@@ -16,11 +18,10 @@ jobs:
   steps:
   - task: AzureResourceManagerTemplateDeployment@3
     inputs:
+      deploymentScope: "Resource Group"
       connectedServiceName: $(ServiceConnectionName)
       deploymentName: $(Build.BuildNumber)
       location: $(deploymentDefaultLocation)
       resourceGroupName: $(ResourceGroupName)
       csmFile: main.bicep
-      overrideParameters: >
-        -environmentType $(EnvironmentType)
-        -deployToyManualsStorageAccount $(DeployToyManualsStorageAccount)
+      csmParametersFile: dev.param.json
