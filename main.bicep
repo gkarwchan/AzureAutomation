@@ -33,7 +33,7 @@ param sqDatabaseSku object
 var solutionId = '${environmentName}${uniqueString(resourceGroup().id)}'
 
 
-@description('')
+@description('deploy sql server and its components')
 module sqlServer 'modules/sqlServer.bicep' = {
   name: 'sqlServer'
   params: {
