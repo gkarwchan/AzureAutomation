@@ -27,6 +27,9 @@ resource appServiceApp 'Microsoft.Web/sites@2023-01-01' = {
   properties: {
     serverFarmId: appServicePlan.id
     httpsOnly: true
+    siteConfig: {
+      alwaysOn: true
+    }
   }
 }
 
