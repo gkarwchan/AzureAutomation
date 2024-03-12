@@ -3,6 +3,9 @@ trigger:
   branches:
     include:
       - main
+  paths:
+    include:
+      - infra
 
 pool:
   vmImage: ubuntu-latest
@@ -27,5 +30,5 @@ jobs:
       deploymentName: $(Build.BuildNumber)
       location: $(deploymentDefaultLocation)
       resourceGroupName: $(ResourceGroupName)
-      csmFile: main.bicep
+      csmFile: infra/main.bicep
       csmParametersFile: dev.param.json
